@@ -3,45 +3,44 @@
 // Первоначальный массив можно ввести с клавиатуры, либо задать на старте выполнения алгоритма. 
 // При решении не рекомендуется пользоваться коллекциями, лучше обойтись исключительно массивами.
 
-string Input(string msg)
+string InputString(string msg)
 {
     Console.Write(msg);
     string result = Console.ReadLine() ?? "";
     return result;
 }
- 
+
 int ArraySize()
 {
     int size = -1;
     while (size < 1)
     {
-        size = Convert.ToInt32(Input("Пожалуйста, введите сколько элементов будет в массиве?: "));
-        if (size < 1) ErrorMsg();
+        size = Convert.ToInt32(InputString("Пожалуйста, введите сколько элементов будет в массиве?: "));
+        if (size < 1) ErrorMessage();
     }
     return size;
 }
- 
-void ErrorMsg()
+
+void ErrorMessage()
 {
     Console.WriteLine("\nВведенное значение некорректно. Повторите ввод.\n");
 }
- 
+
 string[] CreateStringArray(int size)
 {
     string[] arr = new string[size];
     return arr;
 }
- 
-void FillSourceArray(string[] arr)
+
+void FillArrayCustomStrings(string[] arr)
 {
     Console.WriteLine("Пожалуйста, заполните массив.");
     for (int i = 0; i < arr.Length; i++)
     {
-        arr[i] = Input($"Введите элемент №{i + 1}: ");
+        arr[i] = InputString($"Введите элемент №{i + 1}: ");
     }
-    // return arr;
 }
- 
+
 void PrintStringArray(string[] arr)
 {
     Console.Write("[ ");
@@ -51,8 +50,8 @@ void PrintStringArray(string[] arr)
     }
     Console.Write(" ]");
 }
- 
-int CountValues(string[] arr)
+
+int CountThreeSymbolsStrings(string[] arr)
 {
     int count = 0;
     for (int i = 0; i < arr.Length; i++)
@@ -61,22 +60,21 @@ int CountValues(string[] arr)
     }
     return count;
 }
- 
-void FillResultArray(string[] arrSource, string[] arrResult)
+
+void MoveThreeSymbolsStrings(string[] arrSource, string[] arrResult)
 {
     for (int i = 0, j = 0; i < arrSource.Length; i++)
     {
         if (arrSource[i].Length < 4) arrResult[j++] = arrSource[i];
     }
-    // return arrResult;
 }
- 
+
 void Output()
 {
-    int arrSize = ArraySize();
-    string[] firstArray = CreateStringArray(arrSize);
-    FillSourceArray(firstArray);
-    int count = CountValues(firstArray);
+    int firstArraySize = ArraySize();
+    string[] firstArray = CreateStringArray(firstArraySize);
+    FillArrayCustomStrings(firstArray);
+    int count = CountThreeSymbolsStrings(firstArray);
     if (count == 0)
     {
         Console.WriteLine("В данном массиве нет строк короче трёх символов.");
@@ -84,11 +82,11 @@ void Output()
     else
     {
         string[] secondArray = CreateStringArray(count);
-        FillResultArray(firstArray, secondArray);
+        MoveThreeSymbolsStrings(firstArray, secondArray);
         PrintStringArray(firstArray);
         Console.Write(" --> ");
         PrintStringArray(secondArray);
     }
 }
- 
+
 Output();
